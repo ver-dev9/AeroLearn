@@ -8,6 +8,13 @@ Built with **React Native + Expo (SDK 58) + TypeScript**. Runs on Android and iO
 
 ---
 
+## Download
+
+A ready-to-install Android APK is in [`releases/AeroLearn-v1.0.0-arm64.apk`](releases/AeroLearn-v1.0.0-arm64.apk) (v1.0.0, about 26 MB).
+
+- Built for **arm64-v8a**, which covers nearly all Android phones from about 2017 onward. Android 7.0 (API 24) or newer.
+- Signed with a debug key, so it is fine for sideloading but not for the Play Store. Enable "Install unknown apps" for your browser or file manager, then open the APK.
+
 ## Features
 
 | Module | What it does | Model |
