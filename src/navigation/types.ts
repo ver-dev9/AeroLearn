@@ -16,4 +16,5 @@ export type RootStackParamList = {
   AeroLab: { preset?: Record<string, number> } | undefined;
   Lesson: { id: string };
   Challenge: { id: string };
+  AstronomyExplorer: undefined;
 };
