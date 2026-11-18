@@ -14,7 +14,7 @@ export const colors = {
   green: '#74D6AE',
   red: '#EF8989',
   text: '#FFFFFF',
-  textMuted: '#B8BBC8C',
+  textMuted: '#B8BBC8',
   textDim: '#7D8190',
   grid: 'rgba(184,187,204,0.12)',
 };
