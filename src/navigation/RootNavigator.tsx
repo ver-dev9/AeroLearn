@@ -15,6 +15,7 @@ import RocketLabScreen from '../screens/RocketLabScreen';
 import AeroLabScreen from '../screens/AeroLabScreen';
 import LessonScreen from '../screens/LessonScreen';
 import ChallengeScreen from '../screens/ChallengeScreen';
+import AstronomyExplorerScreen from '../screens/AstronomyExplorerScreen';
 import { BookIcon, HomeIcon, LabIcon, TargetIcon, UserIcon } from '../components/Icons';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -66,6 +67,7 @@ export default function RootNavigator() {
         <Stack.Screen name="AeroLab" component={AeroLabScreen} options={{ title: 'Aerodynamics Lab' }} />
         <Stack.Screen name="Lesson" component={LessonScreen} options={{ title: 'Lesson' }} />
         <Stack.Screen name="Challenge" component={ChallengeScreen} options={{ title: 'Challenge' }} />
+        <Stack.Screen name="AstronomyExplorer" component={AstronomyExplorerScreen} options={{ title: 'Astronomy Atlas' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
