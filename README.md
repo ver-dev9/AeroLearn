@@ -1,3 +1,8 @@
+## V2 Preview — Astronomy Atlas
+
+AeroLearn V2 development is underway. The first integrated V2 feature is an **Astronomy Atlas** reachable from the Laboratories screen. It includes searchable entries for 20 celestial and astronomical objects, detail panels with key facts, reference notes, and related mission/exploration links.
+
+
 # AeroLearn
 
 ### Understand the Science. Explore the Sky.
