@@ -1,3 +1,8 @@
+# V2 Preview — Astronomy Atlas
+
+The initial V2 feature adds a searchable Astronomy Atlas screen registered in the root navigation and linked from Laboratories. The catalogue covers 20 entries: Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Solar System, Asteroid Belt, Comet, Black Hole, Milky Way, Nebula, Pulsar, Supernova, International Space Station, and Hubble Space Telescope. Each entry includes introductory facts, reference notes, and related exploration/mission names. Reference values are educational summaries, not engineering guidance.
+
+
 # AeroLearn — Technical Documentation of the Scientific Models
 
 All models live in `src/physics/` and are pure TypeScript functions with no UI dependencies. Every quantity is in SI units internally (m, s, kg, N, Pa, rad). The UI converts only for display (km, km/s, degrees, minutes).
