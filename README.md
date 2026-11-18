@@ -13,6 +13,11 @@ Built with **React Native + Expo (SDK 58) + TypeScript**. Runs on Android and iO
 
 ---
 
+## V2 Preview (Android)
+
+The first V2 preview build is available from the [successful GitHub Actions run #7](https://github.com/ver-dev9/AeroLearn/actions/runs/44220331184). It introduces the graphite/violet/warm-metal theme and a searchable Astronomy Atlas with 20 catalogue entries. See [V2 release notes and technical details](RELEASE-V2-PREVIEW.md).
+
+
 ## Download
 
 A ready-to-install Android APK is in [`releases/AeroLearn-v1.0.0-arm64.apk`](releases/AeroLearn-v1.0.0-arm64.apk) (v1.0.0, about 26 MB).
