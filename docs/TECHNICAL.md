@@ -179,3 +179,25 @@ Numeric challenge answers are **computed from the same physics functions** when 
 ## 7. Input validation and error handling
 
 Every model exposes `validate*()` returning field-level messages; `solve*/simulate*` throw `PhysicsInputError` if called with invalid input. The UI validates typed values against slider ranges before passing them to a model, disables Run/Launch while inputs are invalid, and an error boundary prevents a rendering failure from crashing the app. Stored progress is merged defensively on load so a corrupted save cannot crash startup.
+
+
+---
+
+## V2 Preview build and Astronomy Atlas
+
+### Build provenance
+- Android release build: GitHub Actions workflow run #7 (successful)
+- Source commit: `557ed21b9a8e1016553747095a06679064cffce7`
+- Expo SDK: 58; application source uses React Native and TypeScript
+- Android packaging: Expo prebuild followed by Gradle release APK assembly in CI
+- CI artifact: `AeroLearn-Android-APK` (temporary artifact; retention is controlled by GitHub Actions)
+
+### V2 palette
+The shared theme uses a graphite/charcoal base with violet and warm-metal accents. This is a token-based theme update rather than a wholesale component redesign; older screens may still need further visual refinement.
+
+### Astronomy Atlas
+A typed navigation route and Laboratories entry lead to the Atlas screen. Its searchable catalogue includes 20 entries: Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Solar System, Asteroid Belt, Comet, Black Hole, Milky Way, Nebula, Pulsar, Supernova, International Space Station, and Hubble Space Telescope. Each entry provides summary facts, reference notes, and related exploration/mission names. The Atlas is educational content and does not currently simulate full orbital or astrophysical behavior for each entry.
+
+
+### Preview limitations / planned work
+The current V2 preview does not yet include a full interactive 3D astronomy engine, complete rocket/spacecraft model library, expanded mission explorer, or the planned advanced challenge expansion. The successful CI build confirms compilation and packaging; it is not a substitute for device QA or a scientific validation pass of new Atlas content.
