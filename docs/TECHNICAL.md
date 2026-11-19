@@ -213,3 +213,25 @@ The current V2 preview does not yet include a full interactive 3D astronomy engi
 - Replaced blue/violet accents with warm graphite, bronze, sand and ivory tokens. Added subtle, low-opacity animated star and planet ambience behind app content.
 - App version 2.1.0; Android versionCode 2.
 - Interactive model assets stream from NASA and require network access. NASA source pages: https://science.nasa.gov/3d-resources/saturn-v/ and https://science.nasa.gov/3d-resources/space-shuttle-a/.
+
+
+## 8. Gravity & Magnetism Lab (2.2.0)
+
+### Universal gravitation
+
+The interactive screen uses Newton's universal law for two point masses:
+
+```
+F = G m₁ m₂ / r²
+G = 6.67430 × 10⁻¹¹ m³ kg⁻¹ s⁻²
+```
+
+Mass sliders are displayed in scaled units (10²⁴ kg and 10³ kg); separation is displayed in 10⁶ m. Values are converted to SI before evaluation. The diagram scales the two mass markers for legibility and indicates the equal-magnitude, opposite-direction force pair. The model assumes isolated point masses and neglects additional bodies and relativistic effects.
+
+### Magnetic field and compass
+
+The magnetic instrument exposes field strength (µT) and a planar field direction (degrees). The compass needle is drawn aligned to the selected uniform field vector. The field-line ellipses are a qualitative schematic, not a numerical solution of a dipole field. The torque relationship is τ = μ × B; the equilibrium needle direction is parallel or antiparallel to the field according to the compass pole convention.
+
+### UI and presentation
+
+The Home screen is an introduction-only surface with low-contrast star points, orbital paths, a stylised planet and slow decorative orbital motion. It intentionally omits dashboard progress and recent activity. The shared palette uses graphite and deep navy surfaces with bronze, ivory and distinct data-series accents. Profile progress no longer reports lesson-completion totals; lesson content and its local state remain intact.
