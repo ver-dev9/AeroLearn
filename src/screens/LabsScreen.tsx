@@ -22,13 +22,13 @@ export default function LabsScreen() {
     <Screen>
       <Text style={font.h1}>Laboratories</Text>
       <Text style={[font.body, { marginBottom: 16 }]}>Four interactive models. Each states its equations and assumptions.</Text>
-      <Card onPress={() => nav.navigate('AstronomyExplorer')} accent="#A78BFA">
+      <Card onPress={() => nav.navigate('AstronomyExplorer')} accent={colors.amber}>
         <Row style={{ alignItems: 'center' }}>
-          <View style={{ backgroundColor: '#A78BFA18', borderRadius: 12, padding: 12 }}><Text style={{ color: '#A78BFA', fontSize: 22 }}>✦</Text></View>
+          <View style={{ backgroundColor: colors.amber + '18', borderRadius: 12, padding: 12 }}><Text style={{ color: colors.amber, fontSize: 22 }}>✦</Text></View>
           <View style={{ flex: 1, marginLeft: 12 }}>
             <Text style={font.h3}>Astronomy Atlas · V2</Text>
             <Text style={[font.small, { marginTop: 3 }]}>Explore 20 celestial objects, facts, reference values and missions.</Text>
-            <View style={{ marginTop: 8 }}><Badge text="20 COSMIC OBJECTS" color="#A78BFA" /></View>
+            <View style={{ marginTop: 8 }}><Badge text="20 COSMIC OBJECTS" color={colors.amber} /></View>
           </View>
         </Row>
       </Card>
