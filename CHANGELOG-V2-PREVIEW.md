@@ -11,3 +11,11 @@
 - Expand 3D/illustrative models and mission pages.
 - Add advanced challenge content and progression.
 - Verify Android build and test UI.
+
+
+## V2.1 — Rocket Hangar refresh
+- Replaced the Learn bottom-navigation destination with Rocket Hangar and removed the Home learning-library promotion.
+- Added rotatable NASA Saturn V and Space Shuttle 3D GLB viewers with orbit, zoom and pan controls.
+- Added selectable engineering component briefings and an exploded-view index.
+- Shifted the interface to warm graphite, bronze and ivory, with subtle animated celestial ambience behind content.
+- Updated Android version metadata to 2.1.0 / versionCode 2.
