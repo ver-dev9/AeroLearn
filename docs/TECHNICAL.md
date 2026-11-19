@@ -235,3 +235,19 @@ The magnetic instrument exposes field strength (µT) and a planar field directio
 ### UI and presentation
 
 The Home screen is an introduction-only surface with low-contrast star points, orbital paths, a stylised planet and slow decorative orbital motion. It intentionally omits dashboard progress and recent activity. The shared palette uses graphite and deep navy surfaces with bronze, ivory and distinct data-series accents. Profile progress no longer reports lesson-completion totals; lesson content and its local state remain intact.
+
+
+## 9. Rocket Hangar vehicle catalogue and exploded view (2.3.0)
+
+The Rocket Hangar catalogue contains Saturn V, Space Shuttle Atlantis, SLS Block 1, SLS Block 2 Cargo (planned configuration), Falcon 9, Falcon Heavy, Delta IV Heavy, New Glenn, Atlas V, Vulcan Centaur, Ariane 5, Soyuz and Antares. Each record includes an era/status label, launch architecture, key reference facts, component descriptions and a source URL. Configurations are version-sensitive: Antares has evolved across generations; SLS Block 2 Cargo is a planned architecture; Falcon Heavy recovery depends on mission energy; optional boosters vary by launcher configuration.
+
+### Rendering architecture
+
+- Saturn V and Space Shuttle use the existing NASA-hosted GLB assets in `model-viewer` inside React Native WebView. Camera orbit, zoom and automatic rotation are enabled. Network access is required to fetch these assets and the model-viewer module.
+- The other catalogue entries use a local HTML/CSS 3D-style stage schematic generated from each vehicle record. The schematic uses layered gradients, depth offsets, perspective and continuous yaw/pitch motion. It is intentionally labelled illustrative and not to scale; it is not a CAD, photogrammetry or flight-ready geometry model.
+- The Explode/Reassemble control changes the WebView scene state. CSS transitions offset each stage along the vertical axis and in depth. The component selector in React Native updates the engineering briefing (role and explanatory detail).
+- The engineering guide is a stage/system explainer. It does not simulate propellant flow, structural loads, stage separation dynamics, engine cycles or vehicle guidance.
+
+### Content and safety boundaries
+
+All displayed numbers are rounded educational reference values and should be checked against the linked vehicle provider for a specific variant. The catalogue is not a source for launch planning, engine construction, propellant handling or operational procedures. Version 2.3.0 increments Android versionCode to 5.
