@@ -1,20 +1,31 @@
-import React, { ReactNode } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View, ViewStyle, StyleProp, ActivityIndicator } from 'react-native';
+import React, { ReactNode, useEffect, useRef } from 'react';
+import { Animated, Pressable, ScrollView, StyleSheet, Text, View, ViewStyle, StyleProp, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, font, radius, spacing } from '../theme';
+import Svg, { Circle } from 'react-native-svg';
 
 export function Screen({ children, scroll = true, padded = true }: { children: ReactNode; scroll?: boolean; padded?: boolean }) {
   const insets = useSafeAreaInsets();
+  const drift = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(Animated.sequence([
+      Animated.timing(drift, { toValue: 1, duration: 18000, useNativeDriver: true }),
+      Animated.timing(drift, { toValue: 0, duration: 18000, useNativeDriver: true }),
+    ]));
+    loop.start();
+    return () => loop.stop();
+  }, [drift]);
   const content = <View style={[padded && { padding: spacing.lg }, { paddingBottom: spacing.xxl + insets.bottom }]}>{children}</View>;
   return (
     <View style={styles.screen}>
-      {scroll ? (
-        <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-          {content}
-        </ScrollView>
-      ) : (
-        content
-      )}
+      <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+        <Svg width="100%" height="100%">
+          {[...Array(34)].map((_, i) => <Circle key={i} cx={((i * 73) % 353) + '%'} cy={((i * 47) % 811) + '%'} r={i % 7 === 0 ? 1.4 : 0.8} fill="#E8DCC2" opacity={0.12} />)}
+        </Svg>
+        <Animated.View style={{ position: 'absolute', width: 150, height: 150, borderRadius: 75, right: -76, top: '18%', backgroundColor: '#B99B6A', opacity: 0.055, transform: [{ translateY: drift.interpolate({ inputRange: [0,1], outputRange: [-16,18] }) }] }} />
+        <Animated.View style={{ position: 'absolute', width: 68, height: 68, borderRadius: 34, left: -34, top: '66%', backgroundColor: '#D8C6A2', opacity: 0.045, transform: [{ translateX: drift.interpolate({ inputRange: [0,1], outputRange: [-5,20] }) }] }} />
+      </View>
+      {scroll ? <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>{content}</ScrollView> : content}
     </View>
   );
 }
