@@ -8,7 +8,7 @@ import { Logo } from '../components/Icons';
 import { AeroArt, ChallengeArt, FlightArt, OrbitArt, RocketArt } from '../components/Illustrations';
 import { colors, font, radius, spacing } from '../theme';
 import { useProgress, LabId } from '../store/progress';
-import { LESSONS, getLesson } from '../data/lessons';
+import { LESSONS } from '../data/lessons';
 import { CHALLENGES, dailyChallenge, TOPIC_LABEL } from '../data/challenges';
 import { BADGES } from '../data/badges';
 import { dayOfYear, relativeDate } from '../utils/format';
@@ -19,7 +19,7 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export const LAB_CARDS: { id: LabId | 'challenges'; route: keyof RootStackParamList | 'Challenges'; title: string; desc: string; color: string; Art: () => React.ReactElement }[] = [
   { id: 'flight', route: 'FlightLab', title: 'Flight Lab', desc: 'Projectile motion with exact analytic solutions.', color: colors.cyan, Art: FlightArt },
   { id: 'rocket', route: 'RocketLab', title: 'Rocket Lab', desc: 'Variable-mass rocket with thrust, gravity and drag.', color: colors.amber, Art: RocketArt },
-  { id: 'orbit', route: 'OrbitExplorer', title: 'Orbit Explorer', desc: 'Numerically integrated two-body orbits.', color: colors.violet, Art: OrbitArt },
+  { id: 'orbit', route: 'OrbitExplorer', title: 'Orbit Explorer', desc: 'Numerically integrated two-body orbits.', color: colors.amber, Art: OrbitArt },
   { id: 'aero', route: 'AeroLab', title: 'Aerodynamics Lab', desc: 'Lift, drag and the four forces of flight.', color: colors.green, Art: AeroArt },
   { id: 'challenges', route: 'Challenges', title: 'Aerospace Challenges', desc: 'Solve problems and see the full reasoning.', color: colors.blue, Art: ChallengeArt },
 ];
@@ -41,7 +41,6 @@ export default function HomeScreen() {
 
   const daily = dailyChallenge(dayOfYear());
   const dailyDone = state.solvedChallenges.includes(daily.id);
-  const nextLesson = (state.lastLessonId && !state.completedLessons.includes(state.lastLessonId) && getLesson(state.lastLessonId)) || LESSONS.find((l) => !state.completedLessons.includes(l.id)) || null;
   const lessonsPct = state.completedLessons.length / LESSONS.length;
   const challengesPct = state.solvedChallenges.length / CHALLENGES.length;
   const labsPct = Object.values(state.labRunCounts).filter((n) => n > 0).length / 4;
@@ -57,7 +56,7 @@ export default function HomeScreen() {
             <Logo size={44} />
             <View>
               <Text style={styles.brand}>AeroLearn</Text>
-              <Text style={styles.tagline}>Understand the Science. Explore the Sky.</Text>
+              <Text style={styles.tagline}>Explore Beyond the Horizon.</Text>
             </View>
           </Row>
           <Text style={[font.h2, { marginTop: spacing.xl }]}>Welcome back, {state.profileName}.</Text>
@@ -88,25 +87,18 @@ export default function HomeScreen() {
         ))}
       </ScrollView>
 
-      <SectionTitle title="Continue learning" action="Library" onAction={() => nav.navigate('Tabs', { screen: 'Learn' })} />
-      {nextLesson ? (
-        <Card onPress={() => nav.navigate('Lesson', { id: nextLesson.id })} accent={colors.cyan}>
-          <Badge text={`${nextLesson.minutes} MIN LESSON`} />
-          <Text style={[font.h3, { marginTop: 8 }]}>{nextLesson.title}</Text>
-          <Text style={[font.small, { marginTop: 4 }]}>{nextLesson.subtitle}</Text>
-          <View style={{ marginTop: 12 }}>
-            <ProgressBar value={lessonsPct} />
-            <Text style={[font.small, { marginTop: 6 }]}>
-              {state.completedLessons.length} of {LESSONS.length} lessons completed
-            </Text>
+      <SectionTitle title="Rocket hangar" />
+      <Card onPress={() => nav.navigate('RocketGallery')} accent={colors.amber}>
+        <Row style={{ alignItems: 'center' }}>
+          <View style={{ backgroundColor: colors.amber + '12', borderRadius: 14, padding: 8 }}><RocketArt /></View>
+          <View style={{ flex: 1, marginLeft: 10 }}>
+            <Badge text="NASA 3D COLLECTION" color={colors.amber} />
+            <Text style={[font.h3, { marginTop: 7 }]}>Explore real launch vehicles</Text>
+            <Text style={[font.small, { marginTop: 3 }]}>Rotate the Saturn V and Space Shuttle, then inspect their stages and systems.</Text>
+            <Text style={{ color: colors.amber, fontWeight: '700', marginTop: 8 }}>Enter the hangar →</Text>
           </View>
-        </Card>
-      ) : (
-        <Card>
-          <Text style={font.h3}>Library complete</Text>
-          <Text style={font.small}>You have finished all {LESSONS.length} lessons. Revisit any topic from the Learn tab.</Text>
-        </Card>
-      )}
+        </Row>
+      </Card>
 
       <SectionTitle title="Daily challenge" />
       <Card onPress={() => nav.navigate('Challenge', { id: daily.id })} accent={colors.violet}>
@@ -121,7 +113,7 @@ export default function HomeScreen() {
         <Text style={{ color: colors.violet, fontWeight: '700', marginTop: 10 }}>{dailyDone ? 'Review solution →' : 'Take your time and solve it →'}</Text>
       </Card>
 
-      <SectionTitle title="Learning progress" action="Profile" onAction={() => nav.navigate('Tabs', { screen: 'Profile' })} />
+      <SectionTitle title="Mission progress" action="Profile" onAction={() => nav.navigate('Tabs', { screen: 'Profile' })} />
       <Card>
         <ProgressRow label="Lessons" value={lessonsPct} text={`${state.completedLessons.length}/${LESSONS.length}`} color={colors.cyan} />
         <ProgressRow label="Challenges solved" value={challengesPct} text={`${state.solvedChallenges.length}/${CHALLENGES.length}`} color={colors.violet} />
@@ -173,13 +165,13 @@ function HeroBackdrop() {
       <Svg width="100%" height="100%" viewBox="0 0 360 260" preserveAspectRatio="xMidYMid slice">
         <Defs>
           <LinearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
-            <Stop offset="0" stopColor="#0E1B3A" />
-            <Stop offset="1" stopColor="#081028" />
+            <Stop offset="0" stopColor="#292319" />
+            <Stop offset="1" stopColor="#171510" />
           </LinearGradient>
         </Defs>
         <Rect x={0} y={0} width={360} height={260} fill="url(#hero)" />
         <Path d="M-20 240 Q 180 -60 400 200" stroke={colors.cyan} strokeOpacity={0.18} strokeWidth={1.5} fill="none" />
-        <Path d="M-20 260 Q 200 0 400 240" stroke={colors.blue} strokeOpacity={0.14} strokeWidth={1} fill="none" strokeDasharray="4,6" />
+        <Path d="M-20 260 Q 200 0 400 240" stroke={colors.amber} strokeOpacity={0.10} strokeWidth={1} fill="none" strokeDasharray="4,6" />
         {[...Array(18)].map((_, i) => (
           <Circle key={i} cx={(i * 71) % 360} cy={(i * 37 + 11) % 200} r={i % 4 === 0 ? 1.2 : 0.7} fill="#fff" opacity={0.3} />
         ))}
