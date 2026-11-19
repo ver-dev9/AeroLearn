@@ -1,11 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
-import Svg, { Circle, Ellipse, G, Line, Path, Polygon, Text as SvgText } from 'react-native-svg';
-import { Badge, Card, Chip, Equation, InfoBox, LabHeader, ParamSlider as Missing, Row, Screen, SectionTitle, Stat, StatGrid } from '../components/ui';
+import Svg, { Circle, Ellipse, Line, Path, Polygon, Text as SvgText } from 'react-native-svg';
+import { Badge, Card, Chip, Equation, InfoBox, Screen, SectionTitle, Stat, StatGrid } from '../components/ui';
+import { LabHeader } from '../components/LabHeader';
 import { ParamSlider } from '../components/ParamSlider';
 import { colors, font } from '../theme';
 
-const G = 6.67430e-11;
+const GRAVITATIONAL_CONSTANT = 6.67430e-11;
 
 export default function ForceFieldLabScreen() {
   const [mode, setMode] = useState<'gravity' | 'magnet'>('gravity');
@@ -14,7 +15,7 @@ export default function ForceFieldLabScreen() {
   const [distance, setDistance] = useState(6.37);
   const [field, setField] = useState(50);
   const [angle, setAngle] = useState(35);
-  const force = useMemo(() => G * (m1 * 1e24) * (m2 * 1e3) / Math.pow(distance * 1e6, 2), [m1, m2, distance]);
+  const force = useMemo(() => GRAVITATIONAL_CONSTANT * (m1 * 1e24) * (m2 * 1e3) / Math.pow(distance * 1e6, 2), [m1, m2, distance]);
   const compassAngle = angle;
   return (
     <Screen>
