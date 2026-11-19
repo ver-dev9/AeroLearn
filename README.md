@@ -143,8 +143,8 @@ See **[docs/TECHNICAL.md](docs/TECHNICAL.md)** for every equation, assumption, n
 MIT — see `LICENSE`.
 
 
-## Rocket Hangar — V2.1
+## Rocket Hangar — V2.1.1
 
-The Learn tab has been replaced with a Rocket Hangar featuring interactive, rotatable NASA 3D models of the Saturn V and Space Shuttle. A component guide explains launch escape, spacecraft, stages, boosters, engines and orbital systems. The viewer streams original NASA GLB assets and therefore requires an internet connection. The component guide is an educational exploded-view index; it does not claim that the NASA GLB mesh itself is physically separated.
+The learning-library destination is replaced by a dedicated Rocket Hangar tab featuring interactive, rotatable NASA 3D models of the Saturn V and Space Shuttle. The Home screen also links directly to the hangar. A component guide explains launch escape, spacecraft, stages, boosters, engines and orbital systems. The viewer streams original NASA GLB assets and therefore requires an internet connection. The component guide is an educational exploded-view index; it does not claim that the NASA GLB mesh itself is physically separated.
 
 The interface now uses a warm graphite, bronze and ivory palette with subtle low-opacity animated star and planet accents. Background decoration is non-interactive and does not obscure content.
