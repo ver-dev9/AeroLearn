@@ -148,3 +148,17 @@ MIT — see `LICENSE`.
 The learning-library destination is replaced by a dedicated Rocket Hangar tab featuring interactive, rotatable NASA 3D models of the Saturn V and Space Shuttle. The Home screen also links directly to the hangar. A component guide explains launch escape, spacecraft, stages, boosters, engines and orbital systems. The viewer streams original NASA GLB assets and therefore requires an internet connection. The component guide is an educational exploded-view index; it does not claim that the NASA GLB mesh itself is physically separated.
 
 The interface now uses a warm graphite, bronze and ivory palette with subtle low-opacity animated star and planet accents. Background decoration is non-interactive and does not obscure content.
+
+
+## AeroLearn 2.2.0 — Intro Universe, Field Models and Visual System
+
+- Home is now an introduction-only landing screen: AeroLearn identity, mission statement and a softly animated orbital universe on a graphite/navy space backdrop. Dashboard progress, daily challenge, featured cards and recent experiments have been removed from the first page.
+- Updated the shared palette to graphite grey and deep navy with warm bronze/ivory and distinct cyan, blue, violet, amber, green and red data accents. Graph series can use separate hues so plotted quantities remain distinguishable.
+- Added **Gravity & Magnetism Lab** with two interactive instruments:
+  - Universal gravitation: adjustable primary mass, secondary mass and separation; force is recalculated from Newton's inverse-square law and shown with equal-and-opposite attraction arrows.
+  - Magnetic field and compass: adjustable field strength and direction; the compass needle follows the selected field direction and the field-line diagram responds to field strength.
+- Expanded the Celestial Bodies Atlas with a dedicated explanatory paragraph for each of its 20 catalogue entries and moved the catalogue styling onto the graphite/navy theme.
+- Removed lesson-completion counts and the completed-lessons panel from Profile progress. Lesson content and lesson state remain available elsewhere; they are no longer presented as a progress metric.
+- App version 2.2.0; Android versionCode 4.
+
+The gravity and magnetic field views are interactive educational models, not engineering instruments. The magnetic-field-line artwork is schematic; the compass orientation follows the selected uniform-field direction.
