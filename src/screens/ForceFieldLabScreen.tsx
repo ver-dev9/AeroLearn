@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 import Svg, { Circle, Ellipse, Line, Path, Polygon, Text as SvgText } from 'react-native-svg';
-import { Badge, Card, Chip, Equation, InfoBox, Screen, SectionTitle, Stat, StatGrid } from '../components/ui';
+import { Badge, Card, Chip, Equation, InfoBox, Row, Screen, SectionTitle, Stat, StatGrid } from '../components/ui';
 import { LabHeader } from '../components/LabHeader';
 import { ParamSlider } from '../components/ParamSlider';
 import { colors, font } from '../theme';
