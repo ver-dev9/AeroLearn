@@ -205,7 +205,7 @@ The current V2 preview does not yet include a full interactive 3D astronomy engi
 
 ## V2.1 — Rocket Hangar and warm visual system
 
-- Replaced the Learn bottom tab with Rocket Hangar.
+- Added a dedicated Rocket Hangar bottom-navigation tab in place of the learning-library destination; the existing Laboratories remain available separately.
 - Added an embedded WebView using Google's model-viewer component to display original NASA GLB models with orbit, zoom and pan controls.
 - Initial models: Saturn V and Space Shuttle (A), sourced from NASA Science 3D Resources.
 - Added component briefings for Saturn V stages, F-1 engines and Apollo spacecraft systems, plus Shuttle orbiter, external tank, solid rocket boosters, main engines and OMS.
