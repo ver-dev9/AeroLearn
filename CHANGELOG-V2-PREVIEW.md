@@ -19,3 +19,10 @@
 - Added selectable engineering component briefings and an exploded-view index.
 - Shifted the interface to warm graphite, bronze and ivory, with subtle animated celestial ambience behind content.
 - Updated Android version metadata to 2.1.0 / versionCode 2.
+
+
+## V2.1.1 — Rocket Hangar navigation polish
+- Added a dedicated Rockets bottom-navigation tab for direct access to the interactive NASA 3D hangar.
+- Removed the remaining violet Astronomy Atlas card accent in favour of the warm bronze palette.
+- Applied the warm graphite background to Android splash and adaptive launcher icon surfaces.
+- Bumped Android app version to 2.1.1 (versionCode 3).
