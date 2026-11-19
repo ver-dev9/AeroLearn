@@ -24,7 +24,7 @@ const R: Rocket[] = [
 
 function modelHtml(r: Rocket, exploded: boolean) {
  const blocks = r.stages.map((s,i)=>'<div class="stage" style="--c:'+r.palette[i%r.palette.length]+';--n:'+i+'"><div class="cone"></div><div class="tube"></div><div class="label">'+s+'</div></div>').join('');
- const model = r.model ? '<model-viewer src="'+r.model+'" camera-controls auto-rotate rotation-per-second="12deg" shadow-intensity="1" exposure="1.05" environment-image="neutral" camera-orbit="0deg 75deg auto" alt="'+r.name+' interactive 3D model"></model-viewer>' : '<div class="orbit"></div><div class="rocket">'+blocks+'</div>';
+ const model = r.model && !exploded ? '<model-viewer src="'+r.model+'" camera-controls auto-rotate rotation-per-second="12deg" shadow-intensity="1" exposure="1.05" environment-image="neutral" camera-orbit="0deg 75deg auto" alt="'+r.name+' interactive 3D model"></model-viewer>' : '<div class="orbit"></div><div class="rocket">'+blocks+'</div>';
  return `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">${r.model?'<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>':''}<style>
  *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#303947,#151b24 68%,#10151c);font-family:Arial,sans-serif}
  .stars{position:absolute;inset:0;background-image:radial-gradient(#fff9 1px,transparent 1px),radial-gradient(#c8a66c99 1px,transparent 1px);background-size:53px 53px,91px 91px;background-position:0 0,24px 18px;opacity:.38}
@@ -39,7 +39,7 @@ function modelHtml(r: Rocket, exploded: boolean) {
  @keyframes turn{0%{transform:rotateY(-13deg) rotateX(5deg)}50%{transform:rotateY(13deg) rotateX(-5deg)}100%{transform:rotateY(-13deg) rotateX(5deg)}}
  model-viewer{position:absolute;inset:0;width:100%;height:100%;--poster-color:transparent;--progress-bar-color:#c7a46a;--progress-bar-height:2px}
  .caption{position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#d8d1c5;font-size:10px;letter-spacing:1.3px;text-transform:uppercase;pointer-events:none}
- </style></head><body><div class="stars"></div><div id="scene" class="${exploded?'exploded':''}">${model}</div><div class="caption">${r.model?'Original NASA 3D asset · drag to rotate · pinch to zoom':'Animated 3D-style stage schematic · illustrative, not to scale'}</div></body></html>`;
+ </style></head><body><div class="stars"></div><div id="scene" class="${exploded?'exploded':''}">${model}</div><div class="caption">${r.model&&!exploded?'Original NASA 3D asset · drag to rotate · pinch to zoom':'Exploded engineering schematic · illustrative, not to scale'}</div></body></html>`;
 }
 export default function RocketGalleryScreen() {
  const [id,setId]=useState('saturn'); const [part,setPart]=useState(4); const [exploded,setExploded]=useState(false);
