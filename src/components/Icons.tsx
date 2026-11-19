@@ -9,6 +9,13 @@ export const HomeIcon = ({ size = 24, color = colors.text }: P) => (
     <Path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9z" stroke={color} strokeWidth={1.8} strokeLinejoin="round" />
   </Svg>
 );
+export const RocketIcon = ({ size = 24, color = colors.text }: P) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path d="M14 4c2.8-1.7 5.2-1.7 6-1-.1 2.4-.7 4.5-2.5 6.3l-4.2 4.2-4.8-4.8L12.7 5c.4-.4.8-.7 1.3-1z" stroke={color} strokeWidth={1.7} strokeLinejoin="round"/>
+    <Path d="M8.5 9.5 5 10l-2 3 5-.3M14.5 15.5 14 19l-3 2 .3-5M6.5 17.5l-2 2M8 19l-2 2M5 15l-2 2" stroke={color} strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"/>
+    <Circle cx={15.5} cy={7.5} r={1.5} stroke={color} strokeWidth={1.5}/>
+  </Svg>
+);
 export const LabIcon = ({ size = 24, color = colors.text }: P) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
     <Path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3" stroke={color} strokeWidth={1.8} strokeLinejoin="round" />
