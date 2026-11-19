@@ -162,3 +162,16 @@ The interface now uses a warm graphite, bronze and ivory palette with subtle low
 - App version 2.2.0; Android versionCode 4.
 
 The gravity and magnetic field views are interactive educational models, not engineering instruments. The magnetic-field-line artwork is schematic; the compass orientation follows the selected uniform-field direction.
+
+
+## AeroLearn 2.3.0 — Rocket Hangar Engineering Collection
+
+The Rocket Hangar now includes 13 selectable launch vehicles represented in the supplied reference charts: Saturn V, Space Shuttle Atlantis, SLS Block 1, SLS Block 2 Cargo (planned configuration), Falcon 9, Falcon Heavy, Delta IV Heavy, New Glenn, Atlas V, Vulcan Centaur, Ariane 5, Soyuz and Antares. Each vehicle includes an era/status label, stage architecture, key facts, component briefings and a source link.
+
+- Saturn V and Space Shuttle retain interactive NASA-hosted GLB models with orbit/zoom controls.
+- Other vehicles use animated, custom 3D-style stage schematics. These communicate vehicle architecture but are not photogrammetry, engineering CAD or exact-to-scale models.
+- The Exploded Engineering Guide now has a working Explode/Reassemble control. The schematic stages move apart vertically with depth offsets; selecting a component updates its engineering briefing.
+- Planned and retired configurations are labelled; vehicle-specific variants can differ. SLS Block 2 Cargo is identified as planned, and Antares engine details are treated as generation-dependent.
+- App version 2.3.0; Android versionCode 5.
+
+The models are educational visualisations, not launch-performance predictors or engineering design tools.
