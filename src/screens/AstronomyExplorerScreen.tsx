@@ -26,27 +26,50 @@ const OBJECTS: ObjectItem[] = [
  {id:'iss',name:'International Space Station',type:'HUMAN SPACEFLIGHT',subtitle:'Orbital research laboratory',facts:['Microgravity experiments','International modular partnership'],metrics:['Low Earth orbit'],missions:['ISS expeditions']},
  {id:'hubble',name:'Hubble Space Telescope',type:'OBSERVATORY',subtitle:'Orbital telescope exploring the cosmos',facts:['Observes ultraviolet, visible and near infrared','Serviced and upgraded in orbit'],metrics:['Earth orbit observatory'],missions:['Hubble servicing missions']},
 ];
+const DESCRIPTIONS: Record<string, string> = {
+  "sun": "The Sun is the central star of our planetary system. Its magnetic activity, radiation and gravity shape the space environment experienced by every planet.",
+  "mercury": "Mercury is a small, airless rocky world with a huge iron-rich core. Its proximity to the Sun creates extreme surface temperature swings.",
+  "venus": "Venus has a dense carbon-dioxide atmosphere and an intense greenhouse effect. Its surface pressure and temperature make it one of the most hostile rocky worlds.",
+  "earth": "Earth is a dynamic rocky planet with stable surface liquid water, an active interior and a magnetic field that helps shield the atmosphere from charged particles.",
+  "moon": "The Moon is tidally locked, so nearly the same hemisphere faces Earth. Its ancient craters preserve a record of impacts across Solar System history.",
+  "mars": "Mars preserves river valleys, lake deposits and polar ice. Robotic missions investigate whether the planet once had environments suitable for microbial life.",
+  "jupiter": "Jupiter is a hydrogen-helium giant with powerful jet streams and enormous storms. Its moon system is a miniature planetary laboratory.",
+  "saturn": "Saturn is a low-density gas giant surrounded by an extensive ring system made of countless icy particles. Titan and Enceladus are major targets for exploration.",
+  "uranus": "Uranus rotates with an extreme axial tilt, producing unusual seasons. Its atmosphere contains hydrogen, helium and methane above a deep icy mantle.",
+  "neptune": "Neptune is a distant ice giant with fast atmospheric winds. Its large moon Triton travels in a retrograde orbit and may be a captured Kuiper Belt object.",
+  "solar-system": "The Solar System formed from a collapsing cloud of gas and dust. The Sun dominates its mass, while planets, dwarf planets, moons and small bodies orbit under gravity.",
+  "asteroids": "The asteroid belt contains primitive rocky and metallic remnants from Solar System formation. Spacecraft sample these bodies to study the materials from which planets formed.",
+  "comet": "A comet is an icy small body that releases gas and dust as it approaches the Sun. Solar heating creates a glowing coma and tails that are pushed away from the Sun.",
+  "black-hole": "A black hole is a region where gravity curves spacetime so strongly that an event horizon forms. Hot material outside the horizon can emit powerful radiation.",
+  "milky-way": "The Milky Way is a barred spiral galaxy containing stars, gas, dust and dark matter. Our Solar System orbits within its disk, far from the galactic centre.",
+  "nebula": "Nebulae are vast clouds of interstellar gas and dust. Some are star-forming regions, while others are expanding shells from dying stars.",
+  "pulsar": "A pulsar is a rapidly rotating, strongly magnetised neutron star. Beams of radiation sweep across space and can be detected as remarkably regular pulses.",
+  "supernova": "A supernova is a powerful stellar explosion that ejects enriched material into space. Its shock waves can reshape interstellar clouds and seed future generations of stars.",
+  "iss": "The International Space Station is a continuously crewed orbital laboratory. Its microgravity environment supports research in biology, materials science and human spaceflight.",
+  "hubble": "The Hubble Space Telescope observes the universe above Earth’s atmosphere, producing high-resolution images and spectra across ultraviolet, visible and near-infrared wavelengths."
+};
+
 export default function AstronomyExplorerScreen() {
  const [query,setQuery]=useState(''); const [selected,setSelected]=useState<ObjectItem|null>(null);
  const filtered=useMemo(()=>OBJECTS.filter(o=>(o.name+' '+o.type+' '+o.subtitle).toLowerCase().includes(query.toLowerCase())),[query]);
  return <Screen>
   <View style={{marginBottom:16}}>
-   <Text style={[font.small,{color:'#B79AFF',letterSpacing:2,fontWeight:'800'}]}>AEROLEARN · COSMOS</Text>
+   <Text style={[font.small,{color:colors.amber,letterSpacing:2,fontWeight:'800'}]}>AEROLEARN · COSMOS</Text>
    <Text style={[font.h1,{fontSize:30,marginTop:6}]}>Astronomy Atlas</Text>
-   <Text style={font.body}>Explore 20 cosmic objects, reference values, and missions.</Text>
+   <Text style={font.body}>Explore 20 celestial bodies and deep-space structures, with expanded descriptions, reference values and exploration missions.</Text>
   </View>
-  <TextInput value={query} onChangeText={setQuery} placeholder="Search the cosmos..." placeholderTextColor={colors.textDim} style={{backgroundColor:'#11182A',borderColor:'#2B3650',borderWidth:1,borderRadius:13,padding:13,color:colors.text,marginBottom:14}} />
+  <TextInput value={query} onChangeText={setQuery} placeholder="Search the cosmos..." placeholderTextColor={colors.textDim} style={{backgroundColor:colors.bgElevated,borderColor:colors.border,borderWidth:1,borderRadius:13,padding:13,color:colors.text,marginBottom:14}} />
   <View style={{flexDirection:'row',flexWrap:'wrap',gap:10}}>
-   {filtered.map(o=><Pressable key={o.id} onPress={()=>setSelected(o)} style={{width:'47%',backgroundColor:'#11182A',borderWidth:1,borderColor:'#28334B',borderRadius:16,padding:13,minHeight:132}}>
-    <Text style={{fontSize:22,color:'#B69AFF',marginBottom:8}}>✦</Text><Text style={{fontWeight:'800',fontSize:15,color:colors.text}}>{o.name}</Text><Text style={{fontSize:9,letterSpacing:1.1,color:'#A79BFF',fontWeight:'800',marginTop:5}}>{o.type}</Text><Text style={{fontSize:11,color:colors.textDim,marginTop:5}}>{o.subtitle}</Text>
+   {filtered.map(o=><Pressable key={o.id} onPress={()=>setSelected(o)} style={{width:'47%',backgroundColor:colors.bgElevated,borderWidth:1,borderColor:colors.border,borderRadius:16,padding:13,minHeight:132}}>
+    <Text style={{fontSize:22,color:colors.cyan,marginBottom:8}}>✦</Text><Text style={{fontWeight:'800',fontSize:15,color:colors.text}}>{o.name}</Text><Text style={{fontSize:9,letterSpacing:1.1,color:colors.blue,fontWeight:'800',marginTop:5}}>{o.type}</Text><Text style={{fontSize:11,color:colors.textDim,marginTop:5}}>{o.subtitle}</Text>
    </Pressable>)}
   </View>
   <Modal visible={!!selected} transparent animationType="fade" onRequestClose={()=>setSelected(null)}>
-   <View style={{flex:1,backgroundColor:'rgba(4,6,13,0.96)',justifyContent:'center',padding:14}}>
-    <ScrollView style={{backgroundColor:'#11182A',borderWidth:1,borderColor:'#323C57',borderRadius:22,padding:18,maxHeight:'90%'}}>
+   <View style={{flex:1,backgroundColor:'rgba(8,12,18,0.96)',justifyContent:'center',padding:14}}>
+    <ScrollView style={{backgroundColor:colors.bgElevated,borderWidth:1,borderColor:colors.borderStrong,borderRadius:22,padding:18,maxHeight:'90%'}}>
      <Pressable onPress={()=>setSelected(null)} style={{alignSelf:'flex-end',padding:8}}><Text style={{color:colors.text,fontSize:18}}>✕ Close</Text></Pressable>
      {selected&&<>
-      <Text style={{color:'#B79AFF',fontWeight:'900',letterSpacing:1.8,fontSize:10}}>{selected.type}</Text><Text style={{color:colors.text,fontSize:28,fontWeight:'900',marginTop:6}}>{selected.name}</Text><Text style={{color:colors.textMuted,marginTop:5}}>{selected.subtitle}</Text>
+      <Text style={{color:colors.amber,fontWeight:'900',letterSpacing:1.8,fontSize:10}}>{selected.type}</Text><Text style={{color:colors.text,fontSize:28,fontWeight:'900',marginTop:6}}>{selected.name}</Text><Text style={{color:colors.textMuted,marginTop:5}}>{selected.subtitle}</Text><Text style={{color:colors.text,lineHeight:21,fontSize:14,marginTop:14}}>{DESCRIPTIONS[selected.id]}</Text>
       <Text style={{color:'#FFC96B',fontWeight:'900',fontSize:10,letterSpacing:1.5,marginTop:20}}>KEY FACTS</Text>{selected.facts.map((f,i)=><Text key={i} style={{color:colors.text,fontSize:13,lineHeight:20,marginTop:8}}>• {f}</Text>)}
       <Text style={{color:'#FFC96B',fontWeight:'900',fontSize:10,letterSpacing:1.5,marginTop:20}}>REFERENCE NOTES</Text>{selected.metrics.map((f,i)=><Text key={i} style={{color:colors.text,fontSize:13,lineHeight:20,marginTop:8}}>• {f}</Text>)}
       <Text style={{color:'#FFC96B',fontWeight:'900',fontSize:10,letterSpacing:1.5,marginTop:20}}>MISSIONS & EXPLORATION</Text>{selected.missions.map((f,i)=><Text key={i} style={{color:colors.text,fontSize:13,lineHeight:20,marginTop:8}}>• {f}</Text>)}
