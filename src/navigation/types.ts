@@ -14,6 +14,7 @@ export type RootStackParamList = {
   OrbitExplorer: { preset?: Record<string, number> } | undefined;
   RocketLab: { preset?: Record<string, number | boolean> } | undefined;
   AeroLab: { preset?: Record<string, number> } | undefined;
+  ForceFieldLab: undefined;
   Lesson: { id: string };
   Challenge: { id: string };
   AstronomyExplorer: undefined;
