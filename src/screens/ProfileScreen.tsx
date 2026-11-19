@@ -7,7 +7,6 @@ import { CheckIcon, Logo } from '../components/Icons';
 import { colors, font, radius } from '../theme';
 import { useProgress, LabId } from '../store/progress';
 import { BADGES } from '../data/badges';
-import { LESSONS } from '../data/lessons';
 import { CHALLENGES } from '../data/challenges';
 import { relativeDate } from '../utils/format';
 import type { RootStackParamList } from '../navigation/types';
@@ -63,9 +62,8 @@ export default function ProfileScreen() {
         />
       </Card>
 
-      <SectionTitle title="Learning progress" />
+      <SectionTitle title="Exploration progress" />
       <Card>
-        <Metric label="Lessons completed" n={state.completedLessons.length} total={LESSONS.length} color={colors.cyan} />
         <Metric label="Challenges solved" n={state.solvedChallenges.length} total={CHALLENGES.length} color={colors.violet} />
         <Metric label="Labs explored" n={Object.values(state.labRunCounts).filter((x) => x > 0).length} total={4} color={colors.amber} />
         <Text style={font.small}>
@@ -90,16 +88,6 @@ export default function ProfileScreen() {
           );
         })}
       </View>
-
-      <SectionTitle title="Completed lessons" />
-      <Card>
-        {state.completedLessons.length === 0 ? <Text style={font.small}>None yet — start in the Learn tab.</Text> : null}
-        {LESSONS.filter((l) => state.completedLessons.includes(l.id)).map((l) => (
-          <Pressable key={l.id} onPress={() => nav.navigate('Lesson', { id: l.id })} style={{ paddingVertical: 6 }}>
-            <Text style={{ color: colors.text }}>✓ {l.title}</Text>
-          </Pressable>
-        ))}
-      </Card>
 
       <SectionTitle title="Saved experiments" />
       {state.savedExperiments.length === 0 ? (
@@ -146,7 +134,7 @@ export default function ProfileScreen() {
       </Card>
 
       <Button title="Reset all progress" kind="danger" onPress={confirmReset} style={{ marginTop: 8 }} />
-      <Text style={[font.small, { textAlign: 'center', marginTop: 16, color: colors.textDim }]}>AeroLearn v1.0 · Understand the Science. Explore the Sky.</Text>
+      <Text style={[font.small, { textAlign: 'center', marginTop: 16, color: colors.textDim }]}>AeroLearn v2.2.0 · Understand the Science. Explore the Sky.</Text>
     </Screen>
   );
 }
