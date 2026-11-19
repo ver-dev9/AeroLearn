@@ -4,16 +4,15 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Card, Screen, Row, Badge } from '../components/ui';
 import { colors, font } from '../theme';
-import { LAB_CARDS } from './HomeScreen';
 import { useProgress } from '../store/progress';
 import type { RootStackParamList } from '../navigation/types';
 
-const MODEL: Record<string, string> = {
-  flight: 'Closed-form analytic solution',
-  rocket: 'RK4 integration · variable mass',
-  orbit: 'Velocity-Verlet integration',
-  aero: 'Lift equation + drag polar · ISA',
-};
+const LABS = [
+  { id: 'flight', route: 'FlightLab' as const, title: 'Flight Lab', desc: 'Projectile motion, launch angle, velocity and trajectory.', model: 'Closed-form analytic solution', color: colors.cyan, symbol: '↗' },
+  { id: 'orbit', route: 'OrbitExplorer' as const, title: 'Orbit Explorer', desc: 'Explore satellite paths, orbital speed and escape conditions.', model: 'Velocity-Verlet integration', color: colors.blue, symbol: '◎' },
+  { id: 'rocket', route: 'RocketLab' as const, title: 'Rocket Lab', desc: 'Investigate thrust, fuel burn, gravity and atmospheric drag.', model: 'RK4 integration · variable mass', color: colors.amber, symbol: '🚀' },
+  { id: 'aero', route: 'AeroLab' as const, title: 'Aerodynamics Lab', desc: 'Study lift, drag, angle of attack and stall behaviour.', model: 'Lift equation + drag polar · ISA', color: colors.green, symbol: '✈' },
+];
 
 export default function LabsScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -37,20 +36,22 @@ export default function LabsScreen() {
           <View style={{ backgroundColor: colors.cardAlt, borderRadius: 12, padding: 12 }}><Text style={{ color: colors.amber, fontSize: 22 }}>✦</Text></View>
           <View style={{ flex: 1, marginLeft: 12 }}>
             <Text style={font.h3}>Celestial Bodies Atlas</Text>
-            <Text style={[font.small, { marginTop: 3 }]}>Explore 20 celestial bodies and cosmic structures with expanded descriptions, facts and mission context.</Text>
+            <Text style={[font.small, { marginTop: 3 }]}>Explore 20 celestial bodies and cosmic structures with expanded descriptions and mission context.</Text>
             <View style={{ marginTop: 8 }}><Badge text="20 COSMIC OBJECTS" color={colors.amber} /></View>
           </View>
         </Row>
       </Card>
-      {LAB_CARDS.filter((c) => c.id !== 'challenges').map((c) => (
-        <Card key={c.id} onPress={() => nav.navigate(c.route as 'FlightLab')} accent={c.color}>
+      {LABS.map((lab) => (
+        <Card key={lab.id} onPress={() => nav.navigate(lab.route)} accent={lab.color}>
           <Row style={{ alignItems: 'center' }}>
-            <View style={{ backgroundColor: c.color + '18', borderRadius: 12, padding: 4 }}><c.Art /></View>
-            <View style={{ flex: 1, marginLeft: 8 }}>
-              <Text style={font.h3}>{c.title}</Text>
-              <Text style={[font.small, { marginTop: 2 }]}>{c.desc}</Text>
-              <View style={{ marginTop: 8 }}><Badge text={MODEL[c.id]} color={c.color} /></View>
-              <Text style={[font.small, { marginTop: 6, color: colors.textDim }]}>Runs: {state.labRunCounts[c.id as 'flight'] ?? 0}</Text>
+            <View style={{ width: 48, height: 48, borderRadius: 13, backgroundColor: lab.color + '18', alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ color: lab.color, fontSize: 25, fontWeight: '800' }}>{lab.symbol}</Text>
+            </View>
+            <View style={{ flex: 1, marginLeft: 12 }}>
+              <Text style={font.h3}>{lab.title}</Text>
+              <Text style={[font.small, { marginTop: 2 }]}>{lab.desc}</Text>
+              <View style={{ marginTop: 8 }}><Badge text={lab.model} color={lab.color} /></View>
+              <Text style={[font.small, { marginTop: 6, color: colors.textDim }]}>Runs: {state.labRunCounts[lab.id as keyof typeof state.labRunCounts] ?? 0}</Text>
             </View>
           </Row>
         </Card>
