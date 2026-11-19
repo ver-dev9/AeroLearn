@@ -201,3 +201,15 @@ A typed navigation route and Laboratories entry lead to the Atlas screen. Its se
 
 ### Preview limitations / planned work
 The current V2 preview does not yet include a full interactive 3D astronomy engine, complete rocket/spacecraft model library, expanded mission explorer, or the planned advanced challenge expansion. The successful CI build confirms compilation and packaging; it is not a substitute for device QA or a scientific validation pass of new Atlas content.
+
+
+## V2.1 — Rocket Hangar and warm visual system
+
+- Replaced the Learn bottom tab with Rocket Hangar.
+- Added an embedded WebView using Google's model-viewer component to display original NASA GLB models with orbit, zoom and pan controls.
+- Initial models: Saturn V and Space Shuttle (A), sourced from NASA Science 3D Resources.
+- Added component briefings for Saturn V stages, F-1 engines and Apollo spacecraft systems, plus Shuttle orbiter, external tank, solid rocket boosters, main engines and OMS.
+- The exploded engineering guide separates components into selectable explanatory entries. The original GLB is retained intact; this guide is not a mesh-level exploded animation.
+- Replaced blue/violet accents with warm graphite, bronze, sand and ivory tokens. Added subtle, low-opacity animated star and planet ambience behind app content.
+- App version 2.1.0; Android versionCode 2.
+- Interactive model assets stream from NASA and require network access. NASA source pages: https://science.nasa.gov/3d-resources/saturn-v/ and https://science.nasa.gov/3d-resources/space-shuttle-a/.
