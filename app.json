@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#050B1A"
+      "backgroundColor": "#100F0D"
     },
     "ios": {
       "supportsTablet": true,
@@ -20,7 +20,7 @@
       "package": "com.devlawaniya.aerolearn",
       "versionCode": 2,
       "adaptiveIcon": {
-        "backgroundColor": "#050B1A",
+        "backgroundColor": "#100F0D",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
