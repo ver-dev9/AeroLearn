@@ -6,7 +6,6 @@ import { colors } from '../theme';
 import type { RootStackParamList, TabParamList } from './types';
 import HomeScreen from '../screens/HomeScreen';
 import LabsScreen from '../screens/LabsScreen';
-import LearnScreen from '../screens/LearnScreen';
 import ChallengesScreen from '../screens/ChallengesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FlightLabScreen from '../screens/FlightLabScreen';
@@ -16,14 +15,15 @@ import AeroLabScreen from '../screens/AeroLabScreen';
 import LessonScreen from '../screens/LessonScreen';
 import ChallengeScreen from '../screens/ChallengeScreen';
 import AstronomyExplorerScreen from '../screens/AstronomyExplorerScreen';
-import { BookIcon, HomeIcon, LabIcon, TargetIcon, UserIcon } from '../components/Icons';
+import RocketGalleryScreen from '../screens/RocketGalleryScreen';
+import { HomeIcon, LabIcon, TargetIcon, UserIcon } from '../components/Icons';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const theme: Theme = {
   ...DarkTheme,
-  colors: { ...DarkTheme.colors, background: colors.bg, card: colors.bgElevated, text: colors.text, border: colors.border, primary: colors.cyan, notification: colors.violet },
+  colors: { ...DarkTheme.colors, background: colors.bg, card: colors.bgElevated, text: colors.text, border: colors.border, primary: colors.cyan, notification: colors.amber },
 };
 
 function Tabs() {
@@ -40,7 +40,6 @@ function Tabs() {
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: ({ color }) => <HomeIcon color={color} /> }} />
       <Tab.Screen name="Labs" component={LabsScreen} options={{ tabBarIcon: ({ color }) => <LabIcon color={color} /> }} />
-      <Tab.Screen name="Learn" component={LearnScreen} options={{ tabBarIcon: ({ color }) => <BookIcon color={color} /> }} />
       <Tab.Screen name="Challenges" component={ChallengesScreen} options={{ tabBarIcon: ({ color }) => <TargetIcon color={color} /> }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ tabBarIcon: ({ color }) => <UserIcon color={color} /> }} />
     </Tab.Navigator>
@@ -68,6 +67,7 @@ export default function RootNavigator() {
         <Stack.Screen name="Lesson" component={LessonScreen} options={{ title: 'Lesson' }} />
         <Stack.Screen name="Challenge" component={ChallengeScreen} options={{ title: 'Challenge' }} />
         <Stack.Screen name="AstronomyExplorer" component={AstronomyExplorerScreen} options={{ title: 'Astronomy Atlas' }} />
+        <Stack.Screen name="RocketGallery" component={RocketGalleryScreen} options={{ title: 'Rocket Hangar' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
