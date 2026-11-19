@@ -73,8 +73,8 @@ function GravityDiagram({ massA, massB, distance }: { massA: number; massB: numb
       <Circle cx={76} cy={110} r={ra} fill="#C49A63" opacity={0.9} />
       <Circle cx={264} cy={110} r={rb} fill="#557DA6" opacity={0.95} />
       <Line x1={76 + ra + 8} y1={110} x2={264 - rb - 8} y2={110} stroke={colors.amber} strokeWidth={2} />
-      <Polygon points="76,110 88,104 88,116" fill={colors.amber} />
-      <Polygon points="264,110 252,104 252,116" fill={colors.amber} />
+      <Polygon points="88,110 76,104 76,116" fill={colors.amber} />
+      <Polygon points="252,110 264,104 264,116" fill={colors.amber} />
       <Path d="M76 68V54H264V68" stroke={colors.textDim} fill="none" />
       <SvgText x="170" y="45" fill={colors.textMuted} fontSize="11" textAnchor="middle">r = {distance.toFixed(2)} × 10⁶ m</SvgText>
       <SvgText x="76" y="164" fill={colors.text} fontSize="12" textAnchor="middle">m₁</SvgText>
@@ -90,6 +90,10 @@ function CompassDiagram({ angle, field }: { angle: number; field: number }) {
   return <View style={{ marginBottom: 10 }}>
     <Svg width="100%" height={260} viewBox="0 0 340 260">
       {[...Array(9)].map((_, i) => <Ellipse key={i} cx="170" cy="128" rx={50 + i * 12} ry={28 + i * 7} fill="none" stroke={colors.cyan} strokeOpacity={strength * (1 - i * 0.07)} strokeWidth="1.1" />)}
+      <Path d="M112 38H170V66H112Z" fill={colors.red} />
+      <Path d="M170 38H228V66H170Z" fill={colors.cyan} />
+      <SvgText x="141" y="56" fill="#FFFFFF" fontSize="12" fontWeight="bold" textAnchor="middle">N</SvgText>
+      <SvgText x="199" y="56" fill="#101820" fontSize="12" fontWeight="bold" textAnchor="middle">S</SvgText>
       <Circle cx="170" cy="128" r="40" fill={colors.cardAlt} stroke={colors.borderStrong} strokeWidth="2" />
       <Circle cx="170" cy="128" r="3" fill={colors.text} />
       <Line x1={170 - dx} y1={128 - dy} x2={170 + dx} y2={128 + dy} stroke={colors.textDim} strokeWidth="1.5" strokeDasharray="3 4" />
