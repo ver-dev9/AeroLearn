@@ -1,190 +1,99 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import Svg, { Circle, Defs, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
-import { Card, ProgressBar, Screen, SectionTitle, Badge, Row } from '../components/ui';
+import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
+import Svg, { Circle, Defs, Ellipse, LinearGradient, Path, Stop } from 'react-native-svg';
+import { Screen, Row } from '../components/ui';
 import { Logo } from '../components/Icons';
-import { AeroArt, ChallengeArt, FlightArt, OrbitArt, RocketArt } from '../components/Illustrations';
 import { colors, font, radius, spacing } from '../theme';
-import { useProgress, LabId } from '../store/progress';
-import { LESSONS } from '../data/lessons';
-import { CHALLENGES, dailyChallenge, TOPIC_LABEL } from '../data/challenges';
-import { BADGES } from '../data/badges';
-import { dayOfYear, relativeDate } from '../utils/format';
-import type { RootStackParamList } from '../navigation/types';
-
-type Nav = NativeStackNavigationProp<RootStackParamList>;
-
-export const LAB_CARDS: { id: LabId | 'challenges'; route: keyof RootStackParamList | 'Challenges'; title: string; desc: string; color: string; Art: () => React.ReactElement }[] = [
-  { id: 'flight', route: 'FlightLab', title: 'Flight Lab', desc: 'Projectile motion with exact analytic solutions.', color: colors.cyan, Art: FlightArt },
-  { id: 'rocket', route: 'RocketLab', title: 'Rocket Lab', desc: 'Variable-mass rocket with thrust, gravity and drag.', color: colors.amber, Art: RocketArt },
-  { id: 'orbit', route: 'OrbitExplorer', title: 'Orbit Explorer', desc: 'Numerically integrated two-body orbits.', color: colors.amber, Art: OrbitArt },
-  { id: 'aero', route: 'AeroLab', title: 'Aerodynamics Lab', desc: 'Lift, drag and the four forces of flight.', color: colors.green, Art: AeroArt },
-  { id: 'challenges', route: 'Challenges', title: 'Aerospace Challenges', desc: 'Solve problems and see the full reasoning.', color: colors.blue, Art: ChallengeArt },
-];
-
-const LAB_NAMES: Record<LabId, string> = { flight: 'Flight Lab', orbit: 'Orbit Explorer', rocket: 'Rocket Lab', aero: 'Aerodynamics Lab' };
 
 export default function HomeScreen() {
-  const nav = useNavigation<Nav>();
-  const { state } = useProgress();
-  const fade = useRef(new Animated.Value(0)).current;
+  const spin = useRef(new Animated.Value(0)).current;
+  const drift = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    Animated.timing(fade, { toValue: 1, duration: 600, useNativeDriver: true }).start();
-  }, [fade]);
-
-  const go = (route: string) => {
-    if (route === 'Challenges') nav.navigate('Tabs', { screen: 'Challenges' });
-    else nav.navigate(route as 'FlightLab');
-  };
-
-  const daily = dailyChallenge(dayOfYear());
-  const dailyDone = state.solvedChallenges.includes(daily.id);
-  const lessonsPct = state.completedLessons.length / LESSONS.length;
-  const challengesPct = state.solvedChallenges.length / CHALLENGES.length;
-  const labsPct = Object.values(state.labRunCounts).filter((n) => n > 0).length / 4;
-  const overall = (lessonsPct + challengesPct + labsPct) / 3;
-  const earned = BADGES.filter((b) => b.progress(state) >= 1).length;
+    const orbit = Animated.loop(Animated.timing(spin, { toValue: 1, duration: 42000, easing: Easing.linear, useNativeDriver: true }));
+    const float = Animated.loop(Animated.sequence([
+      Animated.timing(drift, { toValue: 1, duration: 6500, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+      Animated.timing(drift, { toValue: 0, duration: 6500, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+    ]));
+    orbit.start(); float.start();
+    return () => { orbit.stop(); float.stop(); };
+  }, [spin, drift]);
+  const rotation = spin.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+  const translateY = drift.interpolate({ inputRange: [0, 1], outputRange: [8, -10] });
 
   return (
     <Screen>
-      <Animated.View style={{ opacity: fade, transform: [{ translateY: fade.interpolate({ inputRange: [0, 1], outputRange: [12, 0] }) }] }}>
-        <View style={styles.hero}>
-          <HeroBackdrop />
-          <Row>
-            <Logo size={44} />
+      <View style={styles.hero}>
+        <UniverseBackdrop rotation={rotation} translateY={translateY} />
+        <View style={styles.content}>
+          <Row style={{ alignItems: 'center', gap: 12 }}>
+            <Logo size={48} />
             <View>
               <Text style={styles.brand}>AeroLearn</Text>
-              <Text style={styles.tagline}>Explore Beyond the Horizon.</Text>
+              <Text style={styles.eyebrow}>SCIENCE · FLIGHT · THE COSMOS</Text>
             </View>
           </Row>
-          <Text style={[font.h2, { marginTop: spacing.xl }]}>Welcome back, {state.profileName}.</Text>
-          <Text style={[font.body, { marginTop: 4 }]}>Your aerospace laboratory is ready. Change a parameter, run the model, and see the mathematics behind it.</Text>
-          <View style={{ marginTop: spacing.lg }}>
-            <Row style={{ justifyContent: 'space-between', marginBottom: 6 }}>
-              <Text style={font.label}>Overall progress</Text>
-              <Text style={{ color: colors.cyan, fontWeight: '700' }}>{Math.round(overall * 100)}%</Text>
-            </Row>
-            <ProgressBar value={overall} />
+          <View style={{ flex: 1, justifyContent: 'center', paddingTop: 54, paddingBottom: 42 }}>
+            <Text style={styles.kicker}>YOUR UNIVERSE OF DISCOVERY</Text>
+            <Text style={styles.headline}>Understand the science.{"\n"}Explore the sky.</Text>
+            <Text style={styles.description}>AeroLearn is an interactive aerospace laboratory. Experiment with the forces that shape flight, explore gravity and magnetism, and discover the worlds and systems beyond Earth.</Text>
+            <View style={styles.rule} />
+            <Text style={styles.footerLabel}>FROM THE LAWS OF PHYSICS TO THE EDGE OF SPACE</Text>
           </View>
+          <Text style={styles.bottom}>WELCOME TO AEROLEARN</Text>
         </View>
-      </Animated.View>
-
-      <SectionTitle title="Featured simulations" />
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 12, paddingRight: 8 }} style={{ marginHorizontal: -4 }}>
-        {LAB_CARDS.map((c) => (
-          <Pressable key={c.id} onPress={() => go(c.route)} style={({ pressed }) => [styles.labCard, { borderColor: c.color + '55', opacity: pressed ? 0.85 : 1 }]} accessibilityRole="button" accessibilityLabel={`Open ${c.title}`}>
-            <View style={[styles.artWrap, { backgroundColor: c.color + '12' }]}>
-              <c.Art />
-            </View>
-            <Text style={[font.h3, { marginTop: 10 }]}>{c.title}</Text>
-            <Text style={[font.small, { marginTop: 4 }]} numberOfLines={2}>
-              {c.desc}
-            </Text>
-            <Text style={{ color: c.color, fontWeight: '700', marginTop: 10 }}>Open →</Text>
-          </Pressable>
-        ))}
-      </ScrollView>
-
-      <SectionTitle title="Rocket hangar" />
-      <Card onPress={() => nav.navigate('RocketGallery')} accent={colors.amber}>
-        <Row style={{ alignItems: 'center' }}>
-          <View style={{ backgroundColor: colors.amber + '12', borderRadius: 14, padding: 8 }}><RocketArt /></View>
-          <View style={{ flex: 1, marginLeft: 10 }}>
-            <Badge text="NASA 3D COLLECTION" color={colors.amber} />
-            <Text style={[font.h3, { marginTop: 7 }]}>Explore real launch vehicles</Text>
-            <Text style={[font.small, { marginTop: 3 }]}>Rotate the Saturn V and Space Shuttle, then inspect their stages and systems.</Text>
-            <Text style={{ color: colors.amber, fontWeight: '700', marginTop: 8 }}>Enter the hangar →</Text>
-          </View>
-        </Row>
-      </Card>
-
-      <SectionTitle title="Daily challenge" />
-      <Card onPress={() => nav.navigate('Challenge', { id: daily.id })} accent={colors.violet}>
-        <Row style={{ justifyContent: 'space-between' }}>
-          <Badge text={TOPIC_LABEL[daily.topic].toUpperCase()} color={colors.violet} />
-          {dailyDone ? <Badge text="SOLVED" color={colors.green} /> : <Badge text={'●'.repeat(daily.difficulty) + '○'.repeat(3 - daily.difficulty)} color={colors.textMuted} />}
-        </Row>
-        <Text style={[font.h3, { marginTop: 8 }]}>{daily.title}</Text>
-        <Text style={[font.small, { marginTop: 4 }]} numberOfLines={3}>
-          {daily.prompt}
-        </Text>
-        <Text style={{ color: colors.violet, fontWeight: '700', marginTop: 10 }}>{dailyDone ? 'Review solution →' : 'Take your time and solve it →'}</Text>
-      </Card>
-
-      <SectionTitle title="Mission progress" action="Profile" onAction={() => nav.navigate('Tabs', { screen: 'Profile' })} />
-      <Card>
-        <ProgressRow label="Lessons" value={lessonsPct} text={`${state.completedLessons.length}/${LESSONS.length}`} color={colors.cyan} />
-        <ProgressRow label="Challenges solved" value={challengesPct} text={`${state.solvedChallenges.length}/${CHALLENGES.length}`} color={colors.violet} />
-        <ProgressRow label="Labs explored" value={labsPct} text={`${Math.round(labsPct * 4)}/4`} color={colors.amber} />
-        <Text style={[font.small, { marginTop: 4 }]}>
-          {earned} of {BADGES.length} achievement badges earned
-        </Text>
-      </Card>
-
-      <SectionTitle title="Recent experiments" />
-      {state.simRuns.length === 0 ? (
-        <Card>
-          <Text style={font.small}>No experiments yet. Open a lab above and run your first simulation.</Text>
-        </Card>
-      ) : (
-        <Card>
-          {state.simRuns.slice(0, 5).map((r, i) => (
-            <Pressable key={r.at + i} onPress={() => go(LAB_CARDS.find((c) => c.id === r.lab)!.route)} style={[styles.runRow, i > 0 && { borderTopWidth: 1, borderTopColor: colors.border }]}>
-              <View style={{ flex: 1 }}>
-                <Text style={{ color: colors.text, fontWeight: '600' }}>{LAB_NAMES[r.lab]}</Text>
-                <Text style={font.small} numberOfLines={1}>
-                  {r.summary}
-                </Text>
-              </View>
-              <Text style={[font.small, { color: colors.textDim }]}>{relativeDate(r.at)}</Text>
-            </Pressable>
-          ))}
-        </Card>
-      )}
+      </View>
     </Screen>
   );
 }
 
-function ProgressRow({ label, value, text, color }: { label: string; value: number; text: string; color: string }) {
+function UniverseBackdrop({ rotation, translateY }: { rotation: Animated.AnimatedInterpolation<string>; translateY: Animated.AnimatedInterpolation<number> }) {
   return (
-    <View style={{ marginBottom: 12 }}>
-      <Row style={{ justifyContent: 'space-between', marginBottom: 6 }}>
-        <Text style={{ color: colors.text }}>{label}</Text>
-        <Text style={{ color, fontWeight: '700' }}>{text}</Text>
-      </Row>
-      <ProgressBar value={value} color={color} />
-    </View>
-  );
-}
-
-function HeroBackdrop() {
-  return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="none">
-      <Svg width="100%" height="100%" viewBox="0 0 360 260" preserveAspectRatio="xMidYMid slice">
+    <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+      <Svg width="100%" height="100%" viewBox="0 0 390 760" preserveAspectRatio="xMidYMid slice">
         <Defs>
-          <LinearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
-            <Stop offset="0" stopColor="#292319" />
-            <Stop offset="1" stopColor="#171510" />
+          <LinearGradient id="spaceBg" x1="0" y1="0" x2="1" y2="1">
+            <Stop offset="0" stopColor="#17283B" />
+            <Stop offset="0.48" stopColor="#171B20" />
+            <Stop offset="1" stopColor="#30271D" />
+          </LinearGradient>
+          <LinearGradient id="planetFill" x1="0" y1="0" x2="1" y2="1">
+            <Stop offset="0" stopColor="#D7B783" />
+            <Stop offset="0.48" stopColor="#8C6948" />
+            <Stop offset="1" stopColor="#293D52" />
           </LinearGradient>
         </Defs>
-        <Rect x={0} y={0} width={360} height={260} fill="url(#hero)" />
-        <Path d="M-20 240 Q 180 -60 400 200" stroke={colors.cyan} strokeOpacity={0.18} strokeWidth={1.5} fill="none" />
-        <Path d="M-20 260 Q 200 0 400 240" stroke={colors.amber} strokeOpacity={0.10} strokeWidth={1} fill="none" strokeDasharray="4,6" />
-        {[...Array(18)].map((_, i) => (
-          <Circle key={i} cx={(i * 71) % 360} cy={(i * 37 + 11) % 200} r={i % 4 === 0 ? 1.2 : 0.7} fill="#fff" opacity={0.3} />
-        ))}
+        <Path d="M0 0H390V760H0Z" fill="url(#spaceBg)" />
+        {[...Array(76)].map((_, i) => <Circle key={i} cx={(i * 73 + 13) % 390} cy={(i * 131 + 19) % 760} r={i % 9 === 0 ? 1.5 : i % 3 === 0 ? 1 : 0.55} fill="#F5E9D2" opacity={0.22 + (i % 5) * 0.09} />)}
+        <Ellipse cx="198" cy="330" rx="168" ry="62" transform="rotate(-24 198 330)" fill="none" stroke="#9AB4C7" strokeOpacity="0.18" strokeWidth="1.2" />
+        <Ellipse cx="198" cy="330" rx="220" ry="92" transform="rotate(-24 198 330)" fill="none" stroke="#D3AD76" strokeOpacity="0.12" strokeWidth="1" strokeDasharray="3 8" />
+        <Circle cx="198" cy="330" r="105" fill="#D6AD70" opacity="0.055" />
+        <Circle cx="198" cy="330" r="76" fill="url(#planetFill)" />
+        <Path d="M139 302 Q194 276 256 296 M127 337 Q198 313 267 334 M147 368 Q202 348 248 365" fill="none" stroke="#F0D6A8" strokeOpacity="0.22" strokeWidth="7" />
+        <Circle cx="305" cy="185" r="25" fill="#5C7892" opacity="0.75" />
+        <Circle cx="298" cy="177" r="7" fill="#A9C2D0" opacity="0.24" />
+        <Circle cx="76" cy="505" r="13" fill="#B88D62" opacity="0.7" />
+        <Path d="M0 570 Q120 520 230 585 T390 560V760H0Z" fill="#101519" opacity="0.55" />
       </Svg>
+      <Animated.View style={{ position: 'absolute', width: 320, height: 320, left: '8%', top: '27%', transform: [{ rotate: rotation }, { translateY }] }}>
+        <Svg width="100%" height="100%" viewBox="0 0 320 320">
+          <Ellipse cx="160" cy="160" rx="145" ry="52" fill="none" stroke="#D6AD70" strokeOpacity="0.42" strokeWidth="1.2" />
+          <Circle cx="304" cy="160" r="5" fill="#D6AD70" />
+          <Circle cx="16" cy="160" r="3" fill="#72AFCB" />
+        </Svg>
+      </Animated.View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  hero: { borderRadius: radius.xl, overflow: 'hidden', padding: spacing.xl, borderWidth: 1, borderColor: colors.border, marginTop: spacing.sm },
-  brand: { color: colors.text, fontSize: 22, fontWeight: '800', letterSpacing: 0.5 },
-  tagline: { color: colors.cyan, fontSize: 12, fontWeight: '600', marginTop: 2 },
-  labCard: { width: 220, backgroundColor: colors.card, borderRadius: radius.lg, borderWidth: 1, padding: spacing.lg, marginLeft: 4 },
-  artWrap: { borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', paddingVertical: 8 },
-  runRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 10 },
+  hero: { flex: 1, minHeight: 650, borderRadius: radius.xl, overflow: 'hidden', borderWidth: 1, borderColor: colors.border, backgroundColor: colors.bgElevated },
+  content: { flex: 1, padding: spacing.xl, justifyContent: 'space-between' },
+  brand: { color: colors.text, fontSize: 25, fontWeight: '900', letterSpacing: 0.4 },
+  eyebrow: { color: colors.amber, fontSize: 9, fontWeight: '800', letterSpacing: 1.5, marginTop: 3 },
+  kicker: { color: colors.cyan, fontSize: 10, fontWeight: '900', letterSpacing: 2.1, marginBottom: 14 },
+  headline: { color: colors.text, fontSize: 34, lineHeight: 41, fontWeight: '900', letterSpacing: -0.8 },
+  description: { color: '#E0DED6', fontSize: 15, lineHeight: 24, marginTop: 18, maxWidth: 320 },
+  rule: { width: 68, height: 3, backgroundColor: colors.amber, marginTop: 26, borderRadius: 3 },
+  footerLabel: { color: '#C5C9C8', fontSize: 9, fontWeight: '800', letterSpacing: 1.25, marginTop: 14 },
+  bottom: { color: colors.amber, fontSize: 9, fontWeight: '800', letterSpacing: 2, textAlign: 'center' },
 });
