@@ -16,7 +16,7 @@ import LessonScreen from '../screens/LessonScreen';
 import ChallengeScreen from '../screens/ChallengeScreen';
 import AstronomyExplorerScreen from '../screens/AstronomyExplorerScreen';
 import RocketGalleryScreen from '../screens/RocketGalleryScreen';
-import { HomeIcon, LabIcon, TargetIcon, UserIcon } from '../components/Icons';
+import { HomeIcon, LabIcon, RocketIcon, TargetIcon, UserIcon } from '../components/Icons';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -39,6 +39,7 @@ function Tabs() {
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: ({ color }) => <HomeIcon color={color} /> }} />
+      <Tab.Screen name="RocketHangar" component={RocketGalleryScreen} options={{ title: "Rockets", tabBarLabel: "Rockets", tabBarIcon: ({ color }) => <RocketIcon color={color} /> }} />
       <Tab.Screen name="Labs" component={LabsScreen} options={{ tabBarIcon: ({ color }) => <LabIcon color={color} /> }} />
       <Tab.Screen name="Challenges" component={ChallengesScreen} options={{ tabBarIcon: ({ color }) => <TargetIcon color={color} /> }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ tabBarIcon: ({ color }) => <UserIcon color={color} /> }} />
