@@ -1,30 +1,27 @@
-/** AeroLearn design system tokens. */
+/** AeroLearn warm-space design tokens. */
 export const colors = {
-  bg: '#08090D',
-  bgElevated: '#11131A',
-  card: '#171A23',
-  cardAlt: '#20232D',
-  border: '#2B2E38',
-  borderStrong: '#44424F',
-  cyan: '#B4A1FF',
-  cyanSoft: 'rgba(180,161,255,0.14)',
-  blue: '#7774A8',
-  violet: '#A78BFA',
-  amber: '#F5C56B',
-  green: '#74D6AE',
-  red: '#EF8989',
-  text: '#FFFFFF',
-  textMuted: '#B8BBC8',
-  textDim: '#7D8190',
-  grid: 'rgba(184,187,204,0.12)',
+  bg: '#100F0D',
+  bgElevated: '#191713',
+  card: '#211E18',
+  cardAlt: '#2A261F',
+  border: '#3A3429',
+  borderStrong: '#514735',
+  cyan: '#C7A46A',
+  cyanSoft: 'rgba(199,164,106,0.14)',
+  blue: '#B99B6A',
+  violet: '#C7A46A',
+  amber: '#D6B77F',
+  green: '#B5AA8F',
+  red: '#C88772',
+  text: '#F4EFE5',
+  textMuted: '#C7BFAF',
+  textDim: '#918878',
+  grid: 'rgba(220,204,174,0.10)',
 };
 
-export const series = [colors.cyan, colors.amber, colors.violet, colors.green, colors.blue];
-
+export const series = [colors.cyan, colors.amber, colors.green, colors.blue, colors.textMuted];
 export const spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 };
-
 export const radius = { sm: 8, md: 12, lg: 18, xl: 24, pill: 999 };
-
 export const font = {
   h1: { fontSize: 28, fontWeight: '800' as const, color: colors.text, letterSpacing: -0.5 },
   h2: { fontSize: 22, fontWeight: '700' as const, color: colors.text, letterSpacing: -0.3 },
